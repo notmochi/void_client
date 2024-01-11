@@ -29,7 +29,7 @@ pub unsafe fn get_static_field<'a>(class_name: &'a str, name: &'a str, sig: &'a 
         });
 }
 
-unsafe fn get_field<'a>(obj: &'a JObject<'a>, name: &'a str, sig: &'a str) -> JValueGen<JObject<'a>> {
+pub unsafe fn get_field<'a>(obj: &'a JObject<'a>, name: &'a str, sig: &'a str) -> JValueGen<JObject<'a>> {
     ENV.as_mut().unwrap()
         .get_field(obj, name, "I")
         .unwrap_or_else(|err| {
@@ -38,7 +38,7 @@ unsafe fn get_field<'a>(obj: &'a JObject<'a>, name: &'a str, sig: &'a str) -> JV
         })
 }
 
-unsafe fn set_field(obj: &JObject<'_>, name: &str, sig: &str, set: JValue) {
+pub unsafe fn set_field(obj: &JObject<'_>, name: &str, sig: &str, set: JValue) {
     ENV.as_mut().unwrap()
         .set_field(obj, name, sig, set)
         .unwrap_or_else(|err| {

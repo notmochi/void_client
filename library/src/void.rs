@@ -88,7 +88,7 @@ pub unsafe fn entry() {
         }
         Logger::log("Quitted loop thread");
     });
-
+    
     loop {
         key_handler.on_tick();
         manager::on_tick();

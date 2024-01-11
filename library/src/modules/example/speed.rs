@@ -1,4 +1,4 @@
-use crate::modules::module::{Module, ModuleData};
+use crate::{modules::module::{Module, ModuleData}, sdk::minecraft::Minecraft};
 
 pub struct SpeedModule {
     pub base: ModuleData
