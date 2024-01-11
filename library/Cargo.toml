@@ -1,5 +1,5 @@
 [package]
-name = "library"
+name = "void"
 version = "0.1.0"
 edition = "2021"
 
@@ -17,5 +17,7 @@ features = [
     "Win32_System_Threading"
 ]
 
-
 [dependencies]
+win_key_codes = "0.1.2"
+jni = "0.21.1"
+winapi = { version = "0.3.8", features = ["libloaderapi", "consoleapi", "minwindef", "processenv", "winbase", "handleapi", "wingdi", "windef", "winuser"] }
