@@ -31,7 +31,7 @@ pub unsafe fn get_static_field<'a>(class_name: &'a str, name: &'a str, sig: &'a 
 
 pub unsafe fn get_field<'a>(obj: &'a JObject<'a>, name: &'a str, sig: &'a str) -> JValueGen<JObject<'a>> {
     ENV.as_mut().unwrap()
-        .get_field(obj, name, "I")
+        .get_field(obj, name, sig)
         .unwrap_or_else(|err| {
             println!("Error when getting {} ({}) from {:?}: {}", name, sig, obj, err);
             return JValueOwned::from(JObject::null());
