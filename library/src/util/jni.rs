@@ -57,65 +57,65 @@ pub unsafe fn get_static_int_field(class_name: &str, name: &str) -> i32 {
 
 pub unsafe fn get_static_bool_field(class_name: &str, name: &str) -> bool {
     get_static_field(class_name, name, "Z")
-    .z()
-    .unwrap_or_else(|err| {
-        println!("Error when casting {}::{}: {}", class_name, name, err);
-        return false;
-    })
+        .z()
+        .unwrap_or_else(|err| {
+            println!("Error when casting {}::{}: {}", class_name, name, err);
+            return false;
+        })
 }
 
 pub unsafe fn get_static_byte_field(class_name: &str, name: &str) -> i8 {
     get_static_field(class_name, name, "B")
     .b()
-    .unwrap_or_else(|err| {
-        println!("Error when casting {}::{}: {}", class_name, name, err);
-        return i8::MIN;
-    })
+        .unwrap_or_else(|err| {
+            println!("Error when casting {}::{}: {}", class_name, name, err);
+            return i8::MIN;
+        })
 }
 
 pub unsafe fn get_static_short_field(class_name: &str, name: &str) -> i16 {
     get_static_field(class_name, name, "S")
     .s()
-    .unwrap_or_else(|err| {
-        println!("Error when casting {}::{}: {}", class_name, name, err);
-        return i16::MIN;
-    })
+        .unwrap_or_else(|err| {
+            println!("Error when casting {}::{}: {}", class_name, name, err);
+            return i16::MIN;
+        })
 }
 
 pub unsafe fn get_static_long_field(class_name: &str, name: &str) -> i64 {
     get_static_field(class_name, name, "J")
     .j()
-    .unwrap_or_else(|err| {
-        println!("Error when casting {}::{}: {}", class_name, name, err);
-        return i64::MIN;
-    })
+        .unwrap_or_else(|err| {
+            println!("Error when casting {}::{}: {}", class_name, name, err);
+            return i64::MIN;
+        })
 }
 
 pub unsafe fn get_static_float_field(class_name: &str, name: &str) -> f32 {
     get_static_field(class_name, name, "F")
     .f()
-    .unwrap_or_else(|err| {
-        println!("Error when casting {}::{}: {}", class_name, name, err);
-        return f32::MIN;
-    })
+        .unwrap_or_else(|err| {
+            println!("Error when casting {}::{}: {}", class_name, name, err);
+            return f32::MIN;
+        })
 }
 
 pub unsafe fn get_static_double_field(class_name: &str, name: &str) -> f64 {
     get_static_field(class_name, name, "D")
-    .d()
-    .unwrap_or_else(|err| {
-        println!("Error when casting {}::{}: {}", class_name, name, err);
-        return f64::MIN;
-    })
+        .d()
+        .unwrap_or_else(|err| {
+            println!("Error when casting {}::{}: {}", class_name, name, err);
+            return f64::MIN;
+        })
 }
 
 pub unsafe fn get_static_object_field<'a>(class_name: &'a str, name: &'a str, signature: &'a str) -> JObject<'a> {
     get_static_field(class_name, name, signature)
-    .l()
-    .unwrap_or_else(move |err| {
-        println!("Error when casting {}::{}: {}", class_name, name, err);
-        return JObject::null();
-    })
+        .l()
+        .unwrap_or_else(move |err| {
+            println!("Error when casting {}::{}: {}", class_name, name, err);
+            return JObject::null();
+        })
 }
 
 pub unsafe fn get_int_field(obj: &JObject, name: &str) -> i32 {

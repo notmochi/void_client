@@ -35,8 +35,8 @@ pub mod keys {
 }
 
 pub mod sdk {
-    pub mod mappings;
     pub mod minecraft;
+    pub mod mappings;
 }
 
 #[no_mangle]
