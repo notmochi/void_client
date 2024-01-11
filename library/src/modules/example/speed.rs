@@ -1,4 +1,4 @@
-use crate::{modules::module::{Module, ModuleData}, util::{logger::Logger, jni}};
+use crate::modules::module::{Module, ModuleData};
 
 pub struct SpeedModule {
     pub base: ModuleData
@@ -28,12 +28,6 @@ impl Module for SpeedModule {
     }
 
     unsafe fn on_tick(&self) {
-        let mc = jni::get_static_object_field("net.minecraft.client.Minecraft", "theMinecraft", "Lnet/minecraft/client/Minecraft;");
-        if mc.is_null() {
-            Logger::log("nulll")
-        } else {
-            Logger::log("not nullll")
-        }
         let last_tick = TICKS;
         TICKS += 1;
         if last_tick != TICKS {
@@ -43,5 +37,5 @@ impl Module for SpeedModule {
 }
 
 pub unsafe fn real_tick() {
-    Logger::log_fmt(format_args!("{}", TICKS));
+    // Logger::log_fmt(format_args!("{}", TICKS));
 }
