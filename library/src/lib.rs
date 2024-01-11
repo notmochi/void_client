@@ -14,6 +14,7 @@ pub mod guilib {
 pub mod util {
     pub mod jvm;
     pub mod logger;
+    pub mod jni;
 }
 
 pub mod hooks {

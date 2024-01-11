@@ -19,6 +19,8 @@ pub static mut JAVA_VM: Option<JavaVM> = None;
 pub static mut ENV: Option<AttachGuard<'static>> = None;
 pub static mut CLASS_LOADER: Option<JObject> = None;
 
+pub static mut RUNNING: bool = true;
+
 pub unsafe fn entry() {
 
     Logger::log("Attached to javaw.exe");
@@ -75,14 +77,28 @@ pub unsafe fn entry() {
 
     Logger::log("Looping...");
 
+    let loop_thread = std::thread::spawn(|| {
+        loop {
+            manager::on_loop();
+            if GetAsyncKeyState(win_key_codes::VK_0) != 0 || !RUNNING {
+                RUNNING = false;
+                break;
+            }
+            std::thread::sleep(Duration::from_millis(5));
+        }
+        Logger::log("Quitted loop thread");
+    });
+
     loop {
         key_handler.on_tick();
         manager::on_tick();
-        if GetAsyncKeyState(win_key_codes::VK_0) != 0 {
+        if !RUNNING {
             break;
         }
         std::thread::sleep(Duration::from_millis(50))
     }
+
+    loop_thread.join().unwrap();
 
     exit_log("Exited loop, now freeing library...")
 }

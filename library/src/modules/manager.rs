@@ -7,6 +7,14 @@ pub unsafe fn init() {
     MODULES.as_mut().unwrap().push(Box::new(SpeedModule::new()));
 }
 
+pub unsafe fn on_loop() {
+    for module in MODULES.as_mut().unwrap().iter_mut() {
+        if module.get_mod().toggled {
+            module.on_loop();
+        }
+    }
+}
+
 pub unsafe fn on_tick() {
     for module in MODULES.as_mut().unwrap().iter_mut() {
         if module.get_mod().toggled {
