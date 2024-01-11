@@ -3,9 +3,38 @@ use windows::{ Win32::Foundation::*, Win32::System::SystemServices::*, };
 
 pub mod void;
 
+pub mod guilib {
+    pub mod app;
+    pub mod input;
+    pub mod painter;
+    pub mod utils;
+    pub mod shader;
+}
+
 pub mod util {
     pub mod jvm;
     pub mod logger;
+}
+
+pub mod hooks {
+    pub mod gui;
+    pub mod patcher;
+}
+
+pub mod modules {
+    pub mod manager;
+    pub mod module;
+    pub mod example {
+        pub mod speed;
+    }
+}
+
+pub mod keys {
+    pub mod key_handler;
+}
+
+pub mod sdk {
+    pub mod mappings;
 }
 
 #[no_mangle]
