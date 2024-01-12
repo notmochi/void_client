@@ -1,3 +1,4 @@
+use std::time::Instant;
 use std::{fs::OpenOptions, time::Duration};
 use std::os::windows::io::AsRawHandle;
 
@@ -78,24 +79,24 @@ pub unsafe fn entry() {
     Logger::log("Looping...");
 
     let loop_thread = std::thread::spawn(|| {
-        loop {
-            manager::on_loop();
-            if GetAsyncKeyState(win_key_codes::VK_0) != 0 || !RUNNING {
-                RUNNING = false;
-                break;
-            }
-            std::thread::sleep(Duration::from_millis(5));
-        }
         Logger::log("Quitted loop thread");
     });
+
+    let mut time: Instant = Instant::now();
     
     loop {
+
         key_handler.on_tick();
-        manager::on_tick();
-        if !RUNNING {
+        manager::on_loop();
+        if time.elapsed().as_millis() >= 50 {
+            time = Instant::now();
+            manager::on_tick();
+        }
+        if GetAsyncKeyState(win_key_codes::VK_0) != 0 || !RUNNING {
+            RUNNING = false;
             break;
         }
-        std::thread::sleep(Duration::from_millis(50))
+        std::thread::sleep(Duration::from_millis(2))
     }
 
     loop_thread.join().unwrap();

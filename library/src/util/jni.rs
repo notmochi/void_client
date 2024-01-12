@@ -46,6 +46,15 @@ pub unsafe fn set_field(obj: &JObject<'_>, name: &str, sig: &str, set: JValue) {
         })
 }
 
+pub unsafe fn call_method<'a>(obj: &'a JObject<'a>, name: &'a str, sig: &'a str, args: &'a[JValue]) -> JValueGen<JObject<'a>> {
+    ENV.as_mut().unwrap()
+        .call_method(obj, name, sig, args)
+        .unwrap_or_else(|err| {
+            println!("Error when getting {} ({}) from {:?}: {}", name, sig, obj, err);
+            return JValueOwned::from(JObject::null());
+        })
+}
+
 pub unsafe fn get_static_int_field(class_name: &str, name: &str) -> i32 {
     get_static_field(class_name, name, "I")
         .i()
