@@ -14,6 +14,7 @@ pub mod guilib {
 pub mod util {
     pub mod jvm;
     pub mod logger;
+    pub mod mappings;
     pub mod jni;
 }
 
@@ -35,7 +36,10 @@ pub mod keys {
 }
 
 pub mod sdk {
-    pub mod mappings;
+    pub mod minecraft;
+    pub mod entity;
+    pub mod player;
+    pub mod retrievable;
 }
 
 #[no_mangle]

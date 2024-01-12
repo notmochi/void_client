@@ -13,7 +13,7 @@ use crate::hooks::patcher;
 use crate::keys::key_handler::KeyHandler;
 use crate::modules::manager;
 use crate::modules::module::ModuleData;
-use crate::sdk::mappings;
+use crate::util::mappings;
 use crate::util::logger::Logger;
 
 pub static mut JAVA_VM: Option<JavaVM> = None;

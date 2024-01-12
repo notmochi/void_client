@@ -20,7 +20,7 @@ pub unsafe fn get_class_obj(class_name: &str) -> JObject {
         .unwrap()
 }
 
-pub unsafe fn get_static_field<'a>(class_name: &'a str, name: &'a str, sig: &'a str) -> JValueGen<JObject<'a>> {
+pub unsafe fn get_static_field(class_name: &str, name: &str, sig: &str) -> JValueGen<JObject<'static>> {
     return ENV.as_mut().unwrap()
         .get_static_field(JClass::from(get_class_obj(class_name)), name, sig)
         .unwrap_or_else(|err|  {
@@ -29,7 +29,7 @@ pub unsafe fn get_static_field<'a>(class_name: &'a str, name: &'a str, sig: &'a 
         });
 }
 
-pub unsafe fn get_field<'a>(obj: &'a JObject<'a>, name: &'a str, sig: &'a str) -> JValueGen<JObject<'a>> {
+pub unsafe fn get_field(obj: &JObject, name: &str, sig: &str) -> JValueGen<JObject<'static>> {
     ENV.as_mut().unwrap()
         .get_field(obj, name, sig)
         .unwrap_or_else(|err| {
@@ -46,7 +46,7 @@ pub unsafe fn set_field(obj: &JObject<'_>, name: &str, sig: &str, set: JValue) {
         })
 }
 
-pub unsafe fn call_method<'a>(obj: &'a JObject<'a>, name: &'a str, sig: &'a str, args: &'a[JValue]) -> JValueGen<JObject<'a>> {
+pub unsafe fn call_method(obj: &JObject, name: &str, sig: &str, args: &[JValue]) -> JValueGen<JObject<'static>> {
     ENV.as_mut().unwrap()
         .call_method(obj, name, sig, args)
         .unwrap_or_else(|err| {
@@ -118,7 +118,7 @@ pub unsafe fn get_static_double_field(class_name: &str, name: &str) -> f64 {
         })
 }
 
-pub unsafe fn get_static_object_field<'a>(class_name: &'a str, name: &'a str, signature: &'a str) -> JObject<'a> {
+pub unsafe fn get_static_object_field(class_name: &str, name: &str, signature: &str) -> JObject<'static> {
     get_static_field(class_name, name, signature)
         .l()
         .unwrap_or_else(move |err| {
@@ -190,7 +190,7 @@ pub unsafe fn get_double_field(obj: &JObject, name: &str) -> f64 {
         })
 }
 
-pub unsafe fn get_object_field<'a>(obj: &'a JObject<'a>, name: &'a str, signature: &'a str) -> JObject<'a> {
+pub unsafe fn get_object_field(obj: &JObject<'static>, name: &str, signature: &str) -> JObject<'static> {
     get_field(obj, name, signature)
         .l()
         .unwrap_or_else(move |err| {
