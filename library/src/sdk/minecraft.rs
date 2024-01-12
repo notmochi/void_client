@@ -23,7 +23,7 @@ impl TMinecraft for Minecraft {
 
     unsafe fn the_player(&self) -> Player {
         Player {
-            obj: get_object_field(self.get_obj(), "name", "signature")
+            obj: get_object_field(self.get_obj(), "thePlayer", "Lnet/minecraft/client/entity/EntityPlayerSP;")
         }
     }
 }

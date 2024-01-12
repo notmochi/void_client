@@ -1,4 +1,3 @@
-use std::time::Instant;
 use std::{fs::OpenOptions, time::Duration};
 use std::os::windows::io::AsRawHandle;
 
@@ -13,6 +12,8 @@ use crate::hooks::patcher;
 use crate::keys::key_handler::KeyHandler;
 use crate::modules::manager;
 use crate::modules::module::ModuleData;
+use crate::sdk::entity::TEntity;
+use crate::sdk::minecraft::{Minecraft, TMinecraft};
 use crate::util::mappings;
 use crate::util::logger::Logger;
 
@@ -82,16 +83,22 @@ pub unsafe fn entry() {
         Logger::log("Quitted loop thread");
     });
 
-    let mut time: Instant = Instant::now();
+    let mut ticks = 0;
     
     loop {
 
         key_handler.on_tick();
         manager::on_loop();
-        if time.elapsed().as_millis() >= 50 {
-            time = Instant::now();
+
+        let last_ticks = ticks;
+        let mc = Minecraft::get_minecraft();
+        let player = mc.the_player();
+        
+        ticks = player.get_ticks_existed();
+        if last_ticks != ticks {
             manager::on_tick();
         }
+
         if GetAsyncKeyState(win_key_codes::VK_0) != 0 || !RUNNING {
             RUNNING = false;
             break;
@@ -108,6 +115,13 @@ pub unsafe fn on_key(key: i32) {
     for module in manager::MODULES.as_mut().unwrap().iter_mut() {
         let m: &mut ModuleData = module.as_mut().get_mod();
         m.on_key(key as i16);
+        if m.key == key as i16 {
+            if m.toggled {
+                module.on_enable()
+            } else {
+                module.on_disable()
+            }
+        }
     }
 }
 

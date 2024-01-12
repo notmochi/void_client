@@ -27,4 +27,6 @@ pub trait Module {
     fn get_mod(&mut self) -> &mut ModuleData;
     unsafe fn on_tick(&self) { }
     unsafe fn on_loop(&self) { }
+    unsafe fn on_enable(&self) { }
+    unsafe fn on_disable(&self) { }
 }

@@ -1,4 +1,4 @@
-use crate::{modules::module::{Module, ModuleData}, sdk::{minecraft::{Minecraft, TMinecraft}, entity::TEntity}};
+use crate::{modules::module::{Module, ModuleData}, util::logger::Logger};
 
 pub struct SpeedModule {
     pub base: ModuleData
@@ -19,22 +19,15 @@ impl Module for SpeedModule {
         &mut self.base
     }
 
+    unsafe fn on_enable(&self) {
+        Logger::log("ENABLED");
+    }
+
     unsafe fn on_loop(&self) {
-        // let last_tick = TICKS;
-        //let mc = jni::get_static_object_field("net.minecraft.client.Minecraft", "theMinecraft", "Lnet/minecraft/client/Minecraft;");
-        //let player = jni::get_object_field(&mc, "thePlayer", "Lnet/minecraft/client/entity/EntityPlayerSP;");
-        //let ticks_existed = jni::get_int_field(&player, "ticksExisted");
-        // TICKS = ticks_existed;
-        // 
-        //if TICKS != last_tick {
-        //    real_tick();
-        //}
-        let mc = Minecraft::get_minecraft();
-        let player = mc.the_player();
-        let _x = player.get_pos_x();
     }
 
     unsafe fn on_tick(&self) {
+        Logger::log("Tick!")
     }
 }
 

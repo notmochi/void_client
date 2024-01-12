@@ -60,6 +60,10 @@ impl TEntity for Entity {
     unsafe fn set_pitch(&self) {
         todo!()
     }
+
+    unsafe fn get_ticks_existed(&self) -> i32 {
+        todo!()
+    }
 }
 
 pub trait TEntity {
@@ -75,4 +79,5 @@ pub trait TEntity {
     unsafe fn get_pitch(&self) -> f32;
     unsafe fn set_yaw(&self);
     unsafe fn set_pitch(&self);
+    unsafe fn get_ticks_existed(&self) -> i32;
 }
